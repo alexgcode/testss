@@ -24,10 +24,40 @@ export const Form = () => {
 
   const methods = useForm()
 
-  
+  const [loading, setLoading] = useState(false); // Estado de carga
 
-  const onSubmit = methods.handleSubmit(data => {
+  const onSubmit = methods.handleSubmit(async data => {
     console.log(data)
+    
+
+    try {
+      setLoading(true); 
+
+      const response = await fetch('https://backend-node-git-master-alexgf2703gmailcoms-projects.vercel.app/profesores', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error al enviar los datos');
+      }
+  
+      const result = await response.json();
+      console.log('Datos enviados exitosamente:', result);
+
+      alert('¡Registro exitoso! Los datos se han enviado correctamente.');
+
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Ocurrió un error al enviar los datos. Por favor, inténtalo de nuevo.');
+      // Muestra un mensaje de error al usuario
+    }
+    finally {
+      setLoading(false); // Finaliza el estado de carga
+    }
   })
 
   const departamentos = [
@@ -51,53 +81,53 @@ export const Form = () => {
         <h2 className="ml-3 text-5xl   text-left font-semibold">Agregar Nuevo Profesor</h2>
 
         <div className="ml-3 place-content-center w-3/4">
-          <div className="mt-8 py-7 px-14 grid gap-5 md:grid-cols-1 border-solid	border-4">
+          <div className="mt-8 py-7 lg:px-14 grid gap-5 md:grid-cols-1 border-solid	border-4">
             <h4 className="text-3xl   text-left font-bold">Datos Personales</h4>
             <Input
-              label="Nombres"
+              label="nombres"
               type="text"
               id="nombres"
               placeholder="Escribe tus nombres..."
             />
             <Input
-              label="Apellidos"
+              label="apellidos"
               type="text"
               id="apellidos"
               placeholder="Escribe tus apellidos..."
             />
             <Input
-              label="Telefono"
+              label="telefono"
               type="text"
               id="telefono"
               placeholder="0000-00000000"
             />
             <Input
-              label="Dirección"
+              label="direccion"
               type="text"
               id="direccion"
               placeholder="..."
             />
           </div>
-          <div className="mt-8 py-7 px-14 grid gap-5 md:grid-cols-1 border-solid	border-4">
+          <div className="mt-8 py-7 lg:px-14 grid gap-5 md:grid-cols-1 border-solid	border-4">
           <h4 className="text-3xl   text-left font-bold">Datos Académicos</h4>
             <Select
-              label="Departamento"  
+              label="departamento"  
               id="departamento"
               items={departamentos}
             />
             <Select
-              label="Estatus"  
+              label="estatus"  
               id="estatus"
               items={estados}
             />
             <Input
-              label="Titulación"
+              label="titulacion"
               type="text"
               id="titulacion"
               placeholder="..."
             />
             <Input
-              label="Especialidad"
+              label="especialidad"
               type="text"
               id="especialidad"
               placeholder="..."
@@ -105,8 +135,8 @@ export const Form = () => {
             
           </div>
           <div className="text-center mt-5">
-            <button onClick={onSubmit} className="inline-flex w-50  gap-x-1.5  rounded-md bg-blue-950 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:text-blue-950">
-              Agregar Profesor
+            <button onClick={onSubmit} disabled={loading} className="inline-flex w-50  gap-x-1.5  rounded-md bg-blue-950 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:text-blue-950">
+              {loading ? 'Registrando...' : 'Agregar Profesor'}
             </button>
           </div>
         </div>

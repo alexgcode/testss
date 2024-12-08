@@ -21,13 +21,14 @@ export const Navigation = () => {
 
 
   return (
-    <div className="sidebar fixed top-0 bottom-0 lg:left-0 left-[-300px] duration-1000
+    <div className="sidebar fixed z-50 top-0 bottom-0 lg:left-0 left-[-300px] duration-1000
     p-2 w-[300px] overflow-y-auto text-center bg-gray-900 shadow h-screen">
       <div className="text-gray-100 text-xl">
         <div class="p-2.5 mt-1 flex flex-col items-center rounded-md ">
+          <i className="bi bi-x ml-20 cursor-pointer lg:hidden" onClick={Openbar}></i>
           <i className="bi bi-person-fill px-2 py-1 text-8xl bg-blue-600 rounded-full"></i>
           <h1 className="text-[15px] mt-3  ml-3 text-xl text-gray-200 font-bold">Admin Name</h1>
-          <i className="bi bi-x ml-20 cursor-pointer lg:hidden" onClick={Openbar}></i>
+          
         </div>
 
         <div className="text-ml ml-3 text-left">Admin</div>

@@ -49,6 +49,7 @@ export const Form = () => {
       console.log('Datos enviados exitosamente:', result);
 
       alert('¡Registro exitoso! Los datos se han enviado correctamente.');
+      window.location.href = 'https://backend-node-git-master-alexgf2703gmailcoms-projects.vercel.app/profesores';
 
     } catch (error) {
       console.error('Error:', error);
